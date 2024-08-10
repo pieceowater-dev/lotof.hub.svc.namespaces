@@ -1,5 +1,4 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { Member } from '../../member/entities/member.entity';
 import { Service } from '../../service/entities/service.entity';
 
 @Entity()
@@ -19,9 +18,6 @@ export class Namespace {
   @Column()
   owner: string; // user uuid created this NS
 
-  @OneToMany(() => Member, (member) => member.namespace)
-  members: Member[];
-
-  @OneToMany(() => Service, (service) => service.namespace)
-  services: Service[];
+  @OneToMany(() => Service, (service) => service.namespace, { cascade: true })
+  services: Service[]; // services of some namespace
 }
